@@ -25,6 +25,11 @@ df['year'] = df['date'].dt.year
 df['month'] = df['date'].dt.month
 df['day'] = df['date'].dt.day
 
+def get_years():
+    return df['year'].unique()
+
+def get_cities():
+    return map(df['city'.unique()])
 #drop extra date columns
 df.drop(["installation_date", "date"], axis=1, inplace=True)
 
@@ -71,14 +76,12 @@ app.layout = html.Div(children=[
         id='stations',
         figure={
             'data': [
-                {
-                    'x': df.city.unique(),
-                    'y': df.dock_count,
-                    'name': 'Docks by City',
-                }
+                {'x': get_years(), 'y': [4, 1, 2], 'type': 'bar', 'name': 'Palo Alto'},
+                {'x': get_years(), 'y': [2, 4, 5], 'type': 'bar', 'name': u'Montréal'},
+                {'x': get_years(), 'y': [2, 4, 5], 'type': 'bar', 'name': 'San Francisco'},
             ],
             'layout': {
-                'title': 'Trips per Day Visualization'
+                'title': 'City Docks per Year'
             }
         }
     )
@@ -88,20 +91,10 @@ app.layout = html.Div(children=[
 @app.callback(dash.dependencies.Output('stations', 'figure'),
           [dash.dependencies.Input('radio-city', 'value')])
 def update_figure(selected_city):
-    # print(selected_city) #func param necessary. prints to terminal.
-    filtered_df = df[df.city == selected_city]
+    print(selected_city)
 
-    test_me = {
-        'data': [
-            {
-                'x': selected_city,
-                'y': df.dock_count,
-                'name': 'Docks by City',
-            }
-        ]
-    }
+    return
 
-    print(test_me)
 
 if __name__ == '__main__':
     app.run_server(debug=True)
