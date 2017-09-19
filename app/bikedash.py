@@ -2,20 +2,9 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-import plotly.graph_objs as go
 import datetime as dt
-import pandas as pd
 import pdb
-import json
-
-# data_dict = [
-#     {'x': [2013, 2014, 2015], 'y': [2, 5, 10], 'type': 'bar', 'name': 'San Francisco'},
-#     {'x': [2013, 2014, 2015], 'y': [9, 6, 14], 'type': 'bar', 'name': 'San Jose'},
-#     {'x': [2013, 2014, 2015], 'y': [9, 4, 19], 'type': 'bar', 'name': 'Palo Alto'},
-#     {'x': [2013, 2014, 2015], 'y': [4, 9, 16], 'type': 'bar', 'name': 'Mountain View'},
-#     {'x': [2013, 2014, 2015], 'y': [6, 6, 12], 'type': 'bar', 'name': 'Redwood City'},
-# ]
-
+import pandas as pd
 
 df = pd.read_csv('data/station.csv')
 df['date'] = pd.to_datetime(df['installation_date'])
@@ -41,6 +30,13 @@ docks = {
     'min': df.dock_count.min()
 }
 
+palo_alto = df[df.city == "Palo Alto"]
+mountain_view = df[df.city == "Mountain View"]
+redwood_city = df[df.city == "Redwood City"]
+san_francisco = df[df.city == "San Francisco"]
+san_jose = df[df.city == "San Jose"]
+
+
 app = dash.Dash()
 
 app.layout = html.Div(children=[
@@ -59,26 +55,15 @@ app.layout = html.Div(children=[
         html.P('Min: %s' % docks['min'], className='dock_count', id='dc-4')
     ], style={'marginBottom': 10, 'marginTop': 15}),
 
-    html.Label('Radio Items'),
-    dcc.RadioItems(
-        id='radio-city',
-        options=[
-            {'label': 'San Francisco', 'value': 'San Francisco'},
-            {'label': 'San Jose', 'value': 'San Jose'},
-            {'label': 'Redwood City', 'value': 'Redwood City'},
-            {'label': 'Mountain View', 'value': 'Mountain View'},
-            {'label': 'Palo Alto', 'value': 'Palo Alto'}
-        ],
-        value='San Francisco'
-    ),
-
     dcc.Graph(
-        id='stations',
+        id='docks_per_year',
         figure={
             'data': [
-                {'x': get_years(), 'y': [4, 1, 2], 'type': 'bar', 'name': 'Palo Alto'},
-                {'x': get_years(), 'y': [2, 4, 5], 'type': 'bar', 'name': u'Montréal'},
-                {'x': get_years(), 'y': [2, 4, 5], 'type': 'bar', 'name': 'San Francisco'},
+                {'x': get_years(), 'y': [22, 33], 'type': 'bar', 'name': 'Palo Alto'},
+                {'x': get_years(), 'y': [23, 43], 'type': 'bar', 'name': 'Mountain View'},
+                {'x': get_years(), 'y': [24, 54], 'type': 'bar', 'name': 'San Francisco'},
+                {'x': get_years(), 'y': [25, 55], 'type': 'bar', 'name': 'San Jose'},
+                {'x': get_years(), 'y': [26, 57], 'type': 'bar', 'name': 'Redwood City'},
             ],
             'layout': {
                 'title': 'City Docks per Year'
@@ -87,14 +72,6 @@ app.layout = html.Div(children=[
     )
 
 ])
-
-@app.callback(dash.dependencies.Output('stations', 'figure'),
-          [dash.dependencies.Input('radio-city', 'value')])
-def update_figure(selected_city):
-    print(selected_city)
-
-    return
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)
