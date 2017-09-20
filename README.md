@@ -22,6 +22,9 @@ Open `localhost:8050` in your browser.
 
 Once loaded, try clicking a City to filter the graph.
 
+## Accesibility
+
+The design maintains a crisp, clean user interface with minimal contrasting colors.
 
 ## Built With
 
