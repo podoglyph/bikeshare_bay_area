@@ -20,7 +20,7 @@ app.layout = html.Div(className='container', children=[
     '''),
 
     html.Div([
-        html.H2("Bay Area Dock Stats", style={'color': 'blue'}),
+        html.H2("Bay Area Dock Stats", style={}),
         html.Ul([
             html.Li([
                 html.Div([
