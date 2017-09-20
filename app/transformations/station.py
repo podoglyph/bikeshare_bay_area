@@ -11,12 +11,12 @@ df['day'] = df['date'].dt.day
 df.drop(["installation_date", "date"], axis=1, inplace=True)
 
 years = df['year'].unique()
-cities = map(df['city'.unique()])
+cities = df['city'].unique()
 
 #grab some useful columns for calculation
 docks = {
     'total': df.dock_count.sum(),
-    'mean': df.dock_count.mean(),
+    'mean': df.dock_count.mean().round(2),
     'max': df.dock_count.max(),
     'min': df.dock_count.min()
 }

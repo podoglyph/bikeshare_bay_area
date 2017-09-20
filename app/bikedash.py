@@ -5,13 +5,14 @@ import dash_html_components as html
 import pdb
 import pandas as pd
 from transformations import station
-
 docks = station.docks
 years = station.years
 
 app = dash.Dash()
-# b
-app.layout = html.Div(children=[
+
+app.css.append_css({'external_url': 'https://codepen.io/chriddyp/pen/bWLwgP.css'})
+
+app.layout = html.Div(className='container', children=[
     html.H1(children='Bike Dash'),
 
     html.Div(children='''
@@ -19,13 +20,39 @@ app.layout = html.Div(children=[
     '''),
 
     html.Div([
-        html.H1("Bay Area Dock Stats", style={'color': 'blue', 'fontSize': 12}),
+        html.H2("Bay Area Dock Stats", style={'color': 'blue'}),
+        html.Ul([
+            html.Li([
+                html.Div([
+                    html.H6('Total Docks', style={'position': 'relative', 'bottom': '45px'}),
+                    html.Span(docks['total'], style={'position': 'relative', 'bottom': '8px', 'color': '#fff', 'font-size': '24px'})
+                ], style={'position': 'relative', 'border': '1px solid #000', 'border-radius': '50%', 'width': '115px', 'height': '115px', 'margin': '0 auto', 'background-color': '#36E666'})
 
-        html.P('Total Docks: %s' % docks['total'], className='dock_count', id='dc-1'),
-        html.P('Mean: %s' % docks['mean'], className='dock_count', id='dc-2'),
-        html.P('Max: %s' % docks['max'], className='dock_count', id='dc-3'),
-        html.P('Min: %s' % docks['min'], className='dock_count', id='dc-4')
-    ], style={'marginBottom': 10, 'marginTop': 15}),
+            ], className='dock_count three columns', id='dc-1', style={}),
+
+            html.Li([
+                html.Div([
+                    html.H6('Mean', style={'position': 'relative', 'bottom': '45px'}),
+                    html.Span(docks['mean'], style={'position': 'relative', 'bottom': '8px', 'color': '#fff', 'font-size': '24px'})
+                ], style={'position': 'relative', 'border': '1px solid #000', 'border-radius': '50%', 'width': '115px', 'height': '115px', 'margin': '0 auto', 'background-color': '#36E666'})
+            ], className='dock_count three columns', id='dc-2', style={}),
+
+            html.Li([
+                html.Div([
+                    html.H6('Max', style={'position': 'relative', 'bottom': '45px'}),
+                    html.Span(docks['max'], style={'position': 'relative', 'bottom': '8px', 'color': '#fff', 'font-size': '24px'})
+                ], style={'position': 'relative', 'border': '1px solid #000', 'border-radius': '50%', 'width': '115px', 'height': '115px', 'margin': '0 auto', 'background-color': '#36E666'})
+            ], className='dock_count three columns', id='dc-3', style={}),
+
+            html.Li([
+                html.Div([
+                    html.H6('Min', style={'position': 'relative', 'bottom': '45px'}),
+                    html.Span(docks['min'], style={'position': 'relative', 'bottom': '8px', 'color': '#fff', 'font-size': '24px'})
+                ], style={'position': 'relative', 'border': '1px solid #000', 'border-radius': '50%', 'width': '115px', 'height': '115px', 'margin': '0 auto', 'background-color': '#36E666'})
+            ], className='dock_count three columns', id='dc-4', style={})
+        ], style={'list-style': 'none', 'margin-top': '50px'}),
+
+    ], className='row', style={'margin': '0 auto', 'text-align': 'center'}),
 
     dcc.Graph(
         id='docks_per_year',
