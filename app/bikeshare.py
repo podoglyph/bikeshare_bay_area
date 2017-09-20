@@ -10,9 +10,11 @@ from styles import custom_styles
 docks = station.docks
 years = station.years
 
+# Custom styles because you can't use an internal stylesheet in Dash.
 round_icon = custom_styles.round_icon
 round_title = custom_styles.round_title
 round_value = custom_styles.round_value
+round_row = custom_styles.round_row
 
 app = dash.Dash()
 
@@ -58,8 +60,9 @@ app.layout = html.Div(className='container', children=[
             ], className='dock_count three columns')
         ], style={'list-style': 'none', 'margin-top': '50px'}),
 
-    ], className='row', style={'margin': '0 auto', 'text-align': 'center'}),
+    ], className='row', style=round_row),
 
+    # Need to make this more dynamic. Form a list of dictionaries.
     dcc.Graph(
         id='docks_per_year',
         figure={

@@ -2,10 +2,9 @@ import os
 import pandas as pd
 import datetime as datetime
 
-DATA_PATH = "data"
 
 def prep_trip_data():
-    trip_path = os.path.join("trip_fixture.csv")
+    trip_path = os.path.join("data/trip.csv")
     return pd.read_csv(trip_path)
 
 df_trip = prep_trip_data()
@@ -36,6 +35,14 @@ def transform_df_trip(data):
     trips_train.reset_index(drop=True, inplace=True)
     return trips_train
 
-transformed_trip = transform_df_trip(df_trip)
-trips_per_day = {}
-trips_per_day = transformed_trip.to_dict(orient="list")
+trips_train = transform_df_trip(df_trip)
+# this returns:
+#            date  trips
+# 0    2013-08-29    748
+# 1    2013-08-30    714
+# 2    2013-08-31    640
+# 3    2013-09-01    706
+
+
+# trips_per_day = {}
+# trips_per_day = transformed_trip.to_dict(orient="list")

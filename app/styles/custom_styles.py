@@ -3,3 +3,4 @@ round_icon = {'position': 'relative', 'border': '1px solid #000', 'border-radius
 
 round_title = {'position': 'relative', 'bottom': '45px'}
 round_value = {'position': 'relative', 'bottom': '8px', 'color': '#fff', 'font-size': '24px'}
+round_row = {'margin': '0 auto', 'text-align': 'center'}
