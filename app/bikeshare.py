@@ -5,8 +5,14 @@ import dash_html_components as html
 import pdb
 import pandas as pd
 from transformations import station
+from styles import custom_styles
+
 docks = station.docks
 years = station.years
+
+round_icon = custom_styles.round_icon
+round_title = custom_styles.round_title
+round_value = custom_styles.round_value
 
 app = dash.Dash()
 
@@ -24,32 +30,32 @@ app.layout = html.Div(className='container', children=[
         html.Ul([
             html.Li([
                 html.Div([
-                    html.H6('Total Docks', style={'position': 'relative', 'bottom': '45px'}),
-                    html.Span(docks['total'], style={'position': 'relative', 'bottom': '8px', 'color': '#fff', 'font-size': '24px'})
-                ], style={'position': 'relative', 'border': '1px solid #000', 'border-radius': '50%', 'width': '115px', 'height': '115px', 'margin': '0 auto', 'background-color': '#36E666'})
+                    html.H6('Total Docks', style=round_title),
+                    html.Span(docks['total'], style=round_value)
+                ], style=round_icon)
 
-            ], className='dock_count three columns', id='dc-1', style={}),
-
-            html.Li([
-                html.Div([
-                    html.H6('Mean', style={'position': 'relative', 'bottom': '45px'}),
-                    html.Span(docks['mean'], style={'position': 'relative', 'bottom': '8px', 'color': '#fff', 'font-size': '24px'})
-                ], style={'position': 'relative', 'border': '1px solid #000', 'border-radius': '50%', 'width': '115px', 'height': '115px', 'margin': '0 auto', 'background-color': '#36E666'})
-            ], className='dock_count three columns', id='dc-2', style={}),
+            ], className='dock_count three columns'),
 
             html.Li([
                 html.Div([
-                    html.H6('Max', style={'position': 'relative', 'bottom': '45px'}),
-                    html.Span(docks['max'], style={'position': 'relative', 'bottom': '8px', 'color': '#fff', 'font-size': '24px'})
-                ], style={'position': 'relative', 'border': '1px solid #000', 'border-radius': '50%', 'width': '115px', 'height': '115px', 'margin': '0 auto', 'background-color': '#36E666'})
-            ], className='dock_count three columns', id='dc-3', style={}),
+                    html.H6('Mean', style=round_title),
+                    html.Span(docks['mean'], style=round_value)
+                ], style=round_icon)
+            ], className='dock_count three columns'),
 
             html.Li([
                 html.Div([
-                    html.H6('Min', style={'position': 'relative', 'bottom': '45px'}),
-                    html.Span(docks['min'], style={'position': 'relative', 'bottom': '8px', 'color': '#fff', 'font-size': '24px'})
-                ], style={'position': 'relative', 'border': '1px solid #000', 'border-radius': '50%', 'width': '115px', 'height': '115px', 'margin': '0 auto', 'background-color': '#36E666'})
-            ], className='dock_count three columns', id='dc-4', style={})
+                    html.H6('Max', style=round_title),
+                    html.Span(docks['max'], style=round_value)
+                ], style=round_icon)
+            ], className='dock_count three columns'),
+
+            html.Li([
+                html.Div([
+                    html.H6('Min', style=round_title),
+                    html.Span(docks['min'], style=round_value)
+                ], style=round_icon)
+            ], className='dock_count three columns')
         ], style={'list-style': 'none', 'margin-top': '50px'}),
 
     ], className='row', style={'margin': '0 auto', 'text-align': 'center'}),
