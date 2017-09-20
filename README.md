@@ -4,7 +4,7 @@ Bay Area Bike Share uses the [SF Bay Area Bike Share](https://www.kaggle.com/ben
 
 ## Getting Started
 
-Clone this repo.
+Clone this repo and download the [data](https://www.kaggle.com/benhamner/sf-bay-area-bike-share) from Kaggle. Once downloaded, unzip and grab the `station.csv` and move it into a new directory called `data` in the project root.
 
 ### Prerequisites
 

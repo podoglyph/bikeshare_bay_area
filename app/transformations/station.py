@@ -8,22 +8,20 @@ df['date'] = pd.to_datetime(df['installation_date'])
 df['year'] = df['date'].dt.year
 df['month'] = df['date'].dt.month
 df['day'] = df['date'].dt.day
+df.drop(["installation_date", "date"], axis=1, inplace=True)
 
 years = df['year'].unique()
-
-def get_cities():
-    return map(df['city'.unique()])
-#drop extra date columns
-df.drop(["installation_date", "date"], axis=1, inplace=True)
+cities = df['city'].unique()
 
 #grab some useful columns for calculation
 docks = {
     'total': df.dock_count.sum(),
-    'mean': df.dock_count.mean(),
+    'mean': df.dock_count.mean().round(2),
     'max': df.dock_count.max(),
     'min': df.dock_count.min()
 }
 
+#create individual df for each city
 palo_alto = df[df.city == "Palo Alto"]
 mountain_view = df[df.city == "Mountain View"]
 redwood_city = df[df.city == "Redwood City"]
