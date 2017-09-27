@@ -10,3 +10,6 @@ sandbox.py
 /transformations
 *.pyc
 *.yml
+*.json
+app/transformations/get_test.py
+app/transformations/trips_per_day.py
