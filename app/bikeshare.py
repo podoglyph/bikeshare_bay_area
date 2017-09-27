@@ -67,11 +67,11 @@ app.layout = html.Div(className='container', children=[
         id='docks_per_year',
         figure={
             'data': [
-                {'x': years, 'y': [22, 33], 'type': 'bar', 'name': 'Palo Alto'},
-                {'x': years, 'y': [23, 43], 'type': 'bar', 'name': 'Mountain View'},
-                {'x': years, 'y': [24, 54], 'type': 'bar', 'name': 'San Francisco'},
-                {'x': years, 'y': [25, 55], 'type': 'bar', 'name': 'San Jose'},
-                {'x': years, 'y': [26, 57], 'type': 'bar', 'name': 'Redwood City'},
+                {'x': years, 'y': [station.pa_total_docks_2013, station.pa_total_docks_2014], 'type': 'bar', 'name': 'Palo Alto'},
+                {'x': years, 'y': [station.mv_total_docks_2013, station.mv_total_docks_2014], 'type': 'bar', 'name': 'Mountain View'},
+                {'x': years, 'y': [station.sf_total_docks_2013, station.sf_total_docks_2014], 'type': 'bar', 'name': 'San Francisco'},
+                {'x': years, 'y': [station.sj_total_docks_2013, station.sj_total_docks_2014], 'type': 'bar', 'name': 'San Jose'},
+                {'x': years, 'y': [station.rc_total_docks_2013, station.rc_total_docks_2014], 'type': 'bar', 'name': 'Redwood City'},
             ],
             'layout': {
                 'title': 'City Docks per Year'

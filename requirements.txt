@@ -7,3 +7,8 @@ pandas
 pdb
 datetime
 matplotlib
+sklearn
+scipy
+xgboost
+requests
+google-cloud
