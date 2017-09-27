@@ -15,17 +15,16 @@ In the project root:
 
 ### Installing
 
-To start the app:
+To start the app, from the project root:
 `python app/bikeshare.py`
 
 Open `localhost:8050` in your browser.
 
 Once loaded, try clicking a City to filter the graph.
 
+## Accesibility
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+The design maintains a crisp, clean user interface with minimal contrasting colors.
 
 ## Built With
 
