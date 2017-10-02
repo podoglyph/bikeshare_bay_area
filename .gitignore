@@ -13,3 +13,4 @@ sandbox.py
 *.json
 app/transformations/get_test.py
 app/transformations/trips_per_day.py
+app/transformations/merge.py
