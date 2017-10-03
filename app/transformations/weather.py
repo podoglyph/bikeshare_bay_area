@@ -2,17 +2,22 @@ import os
 import pandas as pd
 import datetime as datetime
 
+def run():
+    weather = load_weather_data()
+    events = norm_events(weather.events)
+
+
+#private
 def load_weather_data():
     weather_path = os.path.join("data/weather.csv")
     return pd.read_csv(weather_path)
 
-weather = load_weather_data()
+def norm_events(events):
+    events.loc[events == 'rain'] = "Rain"
+    events.loc[events.isnull()] = "Fair"
+    return pd.get_dummies(events)
 
 weather.precipitation_inches = pd.to_numeric(weather.precipitation_inches, errors = 'coerce')
-
-weather.loc[weather.events == 'rain', 'events'] = "Rain"
-weather.loc[weather.events.isnull(), 'events'] = "Normal"
-events = pd.get_dummies(weather.events)
 
 weather.date = pd.to_datetime(weather.date, format='%m/%d/%Y')
 weather = weather[weather.zip_code == 95113]
