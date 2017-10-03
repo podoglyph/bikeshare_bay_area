@@ -2,28 +2,53 @@ import os
 import pandas as pd
 import datetime as datetime
 
+def run(city):
+    weather = load_weather_data()
+    weather = norm_precipitation_inches(weather)
+    weather = norm_date(weather)
+    weather = select_city(weather, city)
+    events = norm_events(weather.events)
+    weather = merge_events(weather, events)
+
+    return drop_labels(weather)
+
+
 def load_weather_data():
     weather_path = os.path.join("data/weather.csv")
     return pd.read_csv(weather_path)
 
-weather = load_weather_data()
+def norm_precipitation_inches(weather):
+    weather.precipitation_inches = pd.to_numeric(weather.precipitation_inches, errors = 'coerce')
+    weather.loc[weather.precipitation_inches.isnull(),
+        'precipitation_inches'] = weather[weather.precipitation_inches.notnull()].precipitation_inches.median()
 
-weather.precipitation_inches = pd.to_numeric(weather.precipitation_inches, errors = 'coerce')
+    return weather
 
-weather.loc[weather.events == 'rain', 'events'] = "Rain"
-weather.loc[weather.events.isnull(), 'events'] = "Normal"
-events = pd.get_dummies(weather.events)
+def norm_date(weather):
+    weather.date = pd.to_datetime(weather.date, format='%m/%d/%Y')
+    return weather
 
-weather.date = pd.to_datetime(weather.date, format='%m/%d/%Y')
-weather = weather[weather.zip_code == 95113]
-weather = weather.drop("zip_code", 1)
-weather_train = weather.merge(events, left_index=True, right_index=True)
-weather_train = weather_train.drop("max_gust_speed_mph", 1)
+def select_city(weather, city):
+    if city == "San Francisco":
+        city_zip = 94107
+    elif city == "San Jose":
+        city_zip = 95113
 
-weather_train.precipitation_inches = pd.to_numeric(weather_train.precipitation_inches, errors = 'coerce')
+    return weather[weather.zip_code == city_zip]
 
-weather_train.loc[weather_train.precipitation_inches.isnull(),
-            'precipitation_inches'] = weather_train[weather_train.precipitation_inches.notnull()].precipitation_inches.median()
+def norm_events(events):
+    events.loc[events == 'rain'] = "Rain"
+    events.loc[events.isnull()] = "Fair"
+    return pd.get_dummies(events)
+
+def merge_events(weather, events):
+    return weather.merge(events, left_index=True, right_index=True)
+
+def drop_labels(weather):
+    weather.drop(['events', 'precipitation_inches', 'zip_code', 'max_gust_speed_mph'], axis=1, inplace=True)
+    return weather
 
 
-weather_train.drop(["events", "precipitation_inches"], 1, inplace=True)
+weather = run("San Francisco")
+
+# weather.shape(733, 25)
