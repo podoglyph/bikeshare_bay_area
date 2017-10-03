@@ -33,5 +33,4 @@ def transform_trips(df):
 
 trips_per_day = run()
 
-b
 # (733, 2)
