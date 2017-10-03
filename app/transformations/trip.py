@@ -20,12 +20,10 @@ def transform_df_trip(data):
         else:
             dates[d] += 1
 
-    data.drop("start_date", 1, inplace=True)
     df = pd.DataFrame.from_dict(dates, orient = "index")
     df['date'] = df.index
     df['trips'] = df.iloc[:,0]
     trips_train = df.iloc[:,1:3]
-    trips_train.reset_index(drop = True, inplace = True)
     trips_train = trips_train.sort_values('date')
     trips_train.reset_index(drop=True, inplace=True)
     return trips_train
