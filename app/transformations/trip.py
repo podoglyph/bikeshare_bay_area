@@ -3,18 +3,21 @@ import pandas as pd
 import datetime as datetime
 
 
+def run():
+    df = prep_trip_data()
+    trips_per_day = transform_trips(df)
+    return trips_per_day
+
 def prep_trip_data():
     trip_path = os.path.join("data/trip.csv")
     return pd.read_csv(trip_path)
 
-df_trip = prep_trip_data()
-
-def transform_df_trip(data):
-    data.start_date = pd.to_datetime(data.start_date, format='%m/%d/%Y %H:%M')
-    data['date'] = data.start_date.dt.date
+def transform_trips(df):
+    df.start_date = pd.to_datetime(df.start_date, format='%m/%d/%Y %H:%M')
+    df['date'] = df.start_date.dt.date
 
     dates = {}
-    for d in data.date:
+    for d in df.date:
         if d not in dates:
             dates[d] = 1
         else:
@@ -28,4 +31,7 @@ def transform_df_trip(data):
     trips_train.reset_index(drop=True, inplace=True)
     return trips_train
 
-trips_train = transform_df_trip(df_trip)
+trips_per_day = run()
+
+b
+# (733, 2)
